@@ -12,8 +12,8 @@ public class File extends FileSystemEntity {
         this.versions = new ArrayList<FileVersion>();
     }
 
-    public void addVersion(String content) {
-        this.versions.add(new FileVersion(this.currentVersion, content));
+    public void addVersion(Document document) {
+        this.versions.add(new FileVersion(this.currentVersion, document));
         this.currentVersion++;
     }
 

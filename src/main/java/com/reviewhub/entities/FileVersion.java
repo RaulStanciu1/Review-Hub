@@ -1,20 +1,19 @@
 package com.reviewhub.entities;
 
+import lombok.Getter;
+
 class FileVersion {
+    @Getter
     private int version;
-    private String content;
+    private Document document;
 
-    public FileVersion(int version, String content) {
+    public FileVersion(int version, Document document) {
         this.version = version;
-        this.content = content;
+        this.document = document;
     }
 
-    public String getContent() {
-        return this.content;
-    }
-
-    public int getVersion() {
-        return this.version;
+    public String getDocument() {
+        return this.document.getContent();
     }
 
 

@@ -7,7 +7,7 @@ public class Team {
     private ArrayList<User> users;
     private ArrayList<Project> projects;
 
-    public Team(String code, String name) {
+    public Team(String name) {
         this.name = name;
         this.users = new ArrayList<User>();
         this.projects = new ArrayList<Project>();
