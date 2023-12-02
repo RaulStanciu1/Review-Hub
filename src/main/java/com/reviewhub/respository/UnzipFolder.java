@@ -14,10 +14,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
@@ -79,4 +76,12 @@ public class UnzipFolder {
         Path path = Path.of(filePath);
         return Files.readAllLines(path, StandardCharsets.UTF_8);
     }
+
+    public static void deleteDirectory(File file1) throws IOException {
+        Files.walk(file1.toPath())
+                .sorted(Comparator.reverseOrder())
+                .map(Path::toFile)
+                .forEach(File::delete);
+    }
+
 }
