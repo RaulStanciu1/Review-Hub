@@ -1,7 +1,10 @@
 package com.reviewhub.entities;
 
+import lombok.Data;
+
 import java.util.ArrayList;
 
+@Data
 public class Team {
     private String name;
     private ArrayList<User> users;
@@ -9,8 +12,8 @@ public class Team {
 
     public Team(String name) {
         this.name = name;
-        this.users = new ArrayList<User>();
-        this.projects = new ArrayList<Project>();
+        this.users = new ArrayList<>();
+        this.projects = new ArrayList<>();
     }
 
     public void addUser(User user) {
@@ -22,7 +25,7 @@ public class Team {
     }
 
     public ArrayList<String> getUserNames() {
-        ArrayList<String> names = new ArrayList<String>();
+        ArrayList<String> names = new ArrayList<>();
         for (User user : this.users) {
             names.add(user.getName());
         }
@@ -30,7 +33,7 @@ public class Team {
     }
 
     public ArrayList<String> getProjectNames() {
-        ArrayList<String> names = new ArrayList<String>();
+        ArrayList<String> names = new ArrayList<>();
         for (Project project : this.projects) {
             names.add(project.getName());
         }

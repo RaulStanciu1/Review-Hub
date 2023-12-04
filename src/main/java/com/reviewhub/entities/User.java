@@ -1,8 +1,9 @@
 package com.reviewhub.entities;
 
-import java.sql.Array;
-import java.util.ArrayList;
+import lombok.Data;
 
+import java.util.ArrayList;
+@Data
 public class User {
     private String name;
     private String password;
@@ -16,22 +17,6 @@ public class User {
         this.name = name;
         this.password = password;
         this.type = "free";
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getType() {
-        return this.type;
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public String getPassword() {
-        return this.password;
     }
 }
 

@@ -1,22 +1,21 @@
 package com.reviewhub.entities;
 
-import lombok.Getter;
-import lombok.Setter;
-import org.springframework.data.annotation.Id;
 
-import java.sql.Array;
 import java.util.ArrayList;
 
 
 
 
-
 public class Directory extends FileSystemEntity {
-    public ArrayList<FileSystemEntity> children;
+    private ArrayList<FileSystemEntity> children;
 
     public Directory(String name) {
         super(name);
-        this.children = new ArrayList<FileSystemEntity>();
+        this.children = new ArrayList<>();
+    }
+
+    public void setChildren(ArrayList<FileSystemEntity> arr){
+        this.children = arr;
     }
 
 
@@ -25,7 +24,7 @@ public class Directory extends FileSystemEntity {
     }
 
     public ArrayList<String> getFileSystemEntityNames() {
-        ArrayList<String> names = new ArrayList<String>();
+        ArrayList<String> names = new ArrayList<>();
         for (FileSystemEntity child : this.children) {
             names.add(child.getName());
         }

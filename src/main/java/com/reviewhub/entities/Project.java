@@ -17,7 +17,7 @@ public class Project extends Directory{
     //create a conversion from directory to project
     public Project(Directory directory){
         super(directory.getName());
-        this.children = (ArrayList<FileSystemEntity>) directory.getChildren();
+        this.setChildren((ArrayList<FileSystemEntity>) directory.getChildren());
     }
 
 

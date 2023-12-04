@@ -1,13 +1,12 @@
 package com.reviewhub.entities;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 abstract class FileSystemEntity {
     private String name;
-
-    public FileSystemEntity(String name) {
-        this.name = name;
-    }
-
-    protected String getName() {
-        return this.name;
-    }
 }

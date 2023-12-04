@@ -1,8 +1,11 @@
 package com.reviewhub.entities;
 
 
+import lombok.AllArgsConstructor;
+
 import java.util.ArrayList;
 
+@AllArgsConstructor
 public class File extends FileSystemEntity {
     private ArrayList<FileVersion> versions;
     private int currentVersion = 1;
