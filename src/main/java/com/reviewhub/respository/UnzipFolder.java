@@ -62,8 +62,13 @@ public class UnzipFolder {
             if (f.isDirectory()) {
                 project.addDirectory(loadFileToDb(f.getAbsolutePath()));
             } else {
-                Document document = new Document(readFileContent(f.getPath()), f.getName().split("\\.")[1]);
-                project.addFile(f.getName(), document);
+                try{
+                    List<String> fileContent = readFileContent(f.getPath());
+                    Document document = new Document(fileContent, f.getName().split("\\.")[1]);
+                    project.addFile(f.getName(), document);
+                } catch (Exception e) {
+                    continue;
+                }
             }
         }
         file.delete();

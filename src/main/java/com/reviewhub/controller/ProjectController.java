@@ -3,6 +3,7 @@ package com.reviewhub.controller;
 import com.reviewhub.entities.Project;
 import com.reviewhub.respository.ProjectRepository;
 import com.reviewhub.respository.UnzipFolder;
+import com.reviewhub.services.Linter;
 import org.apache.commons.io.FileUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -28,6 +29,8 @@ public class ProjectController {
         File file1 = new File("./uploads");
         String path = String.valueOf(Objects.requireNonNull(file1.listFiles())[0]);
         Project project = new Project(UnzipFolder.loadFileToDb(path));
+        Linter linter = new Linter("java");
+        linter.lintJavaFolder(path);
         projectRepository.save(project);
         UnzipFolder.deleteDirectory(file1);
         return path;
