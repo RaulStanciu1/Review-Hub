@@ -1,0 +1,56 @@
+.r-navbar {
+    width: 100%;
+    height: 112px;
+    background: #253D58;
+    display: inline-flex;
+    align-items: center;
+}
+
+.r-navbar-div {
+    display: inline-flex;
+    align-items: center;
+    flex-grow: 1;
+    height: 112px;
+}
+
+.r-navbar-p {
+    font-size: 64px;
+    color: #FFF;
+    margin-left: 26px;
+}
+
+.r-navbar-p2 {
+    font-size: 64px;
+    color: #F8B60C;
+}
+
+.r-navbar-div2 {
+    display: inline-flex;
+    align-items: center;
+    height: 112px;
+    gap: 24px;
+}
+
+.r-navbar-p3 {
+    color: #FFF;
+}
+
+@keyframes ldbtn {
+    from {background: #FFF;}
+    to {background: #13202E;}
+}
+
+.r-navbar-btn {
+    width: 128px;
+    background: #13202E;
+    padding-top: 18px;
+    padding-bottom: 17px;
+    padding-left: 64px;
+    animation-name: ldbtn;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+}
+
+.r-navbar-btn:hover {
+    background: #416E9E;
+}
