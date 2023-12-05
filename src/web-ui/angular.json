@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "web-ui": {
+    "web-ui2": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/web-ui",
+            "outputPath": "dist/web-ui2",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -27,12 +27,7 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": [],
-            "server": "src/main.server.ts",
-            "prerender": true,
-            "ssr": {
-              "entry": "server.ts"
-            }
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -62,10 +57,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "web-ui:build:production"
+              "buildTarget": "web-ui2:build:production"
             },
             "development": {
-              "buildTarget": "web-ui:build:development"
+              "buildTarget": "web-ui2:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -73,7 +68,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "web-ui:build"
+            "buildTarget": "web-ui2:build"
           }
         },
         "test": {
@@ -98,6 +93,6 @@
     }
   },
   "cli": {
-    "analytics": "64d228fa-6b59-4ee8-8f24-9b4ee9d7b012"
+    "analytics": "046d9fce-33a7-4480-96ff-83e463066341"
   }
 }
