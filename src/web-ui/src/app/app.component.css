@@ -46,11 +46,16 @@
     padding-top: 18px;
     padding-bottom: 17px;
     padding-left: 64px;
-    animation-name: ldbtn;
-    animation-duration: 2s;
-    animation-fill-mode: forwards;
 }
 
 .r-navbar-btn:hover {
     background: #416E9E;
+}
+
+.r-navbar-ldm {
+    cursor: pointer;
+}
+
+.r-navbar-ldm:hover .r-navbar-ldm1 {
+    fill: #416E9E
 }
