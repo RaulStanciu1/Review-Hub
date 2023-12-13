@@ -1,44 +1,30 @@
 package com.reviewhub.entities;
 
 import lombok.Data;
+import org.bson.types.ObjectId;
+import org.springframework.data.annotation.Id;
 
 import java.util.ArrayList;
 
 @Data
 public class Team {
+    @Id
+    private ObjectId id;
     private String name;
-    private ArrayList<User> users;
-    private ArrayList<Project> projects;
+    private ArrayList<ObjectId> users;
+    private ArrayList<ObjectId> projects;
 
     public Team(String name) {
         this.name = name;
-        this.users = new ArrayList<>();
-        this.projects = new ArrayList<>();
+        this.users = new ArrayList<ObjectId>();
+        this.projects = new ArrayList<ObjectId>();
     }
 
     public void addUser(User user) {
-        this.users.add(user);
+        this.users.add(user.getId());
     }
 
     public void addProject(Project project) {
-        this.projects.add(project);
+        this.projects.add(project.getId());
     }
-
-    public ArrayList<String> getUserNames() {
-        ArrayList<String> names = new ArrayList<>();
-        for (User user : this.users) {
-            names.add(user.getName());
-        }
-        return names;
-    }
-
-    public ArrayList<String> getProjectNames() {
-        ArrayList<String> names = new ArrayList<>();
-        for (Project project : this.projects) {
-            names.add(project.getName());
-        }
-        return names;
-    }
-
-
 }

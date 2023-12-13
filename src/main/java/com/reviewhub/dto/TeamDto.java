@@ -1,2 +1,10 @@
-package com.reviewhub.dto;public class TeamDto {
+package com.reviewhub.dto;
+
+import lombok.Data;
+
+@Data
+public class TeamDto {
+    private String name;
+    private String user;
+
 }

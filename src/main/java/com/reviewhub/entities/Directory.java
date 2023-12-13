@@ -14,6 +14,10 @@ public class Directory extends FileSystemEntity {
         this.children = new ArrayList<>();
     }
 
+    public Directory() {
+
+    }
+
     public void setChildren(ArrayList<FileSystemEntity> arr){
         this.children = arr;
     }

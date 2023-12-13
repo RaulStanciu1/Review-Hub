@@ -1,2 +1,10 @@
-package com.reviewhub.dto;public class ProjectDto {
+package com.reviewhub.dto;
+
+import lombok.Data;
+
+@Data
+public class ProjectDto {
+    private String name;
+    private String place;
+    private String type;
 }
