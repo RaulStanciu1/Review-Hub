@@ -60,8 +60,17 @@ public class Directory extends FileSystemEntity {
         this.children.add(file);
     }
 
-    protected Object getChildren() {
+    public ArrayList<FileSystemEntity> getChildren() {
         return this.children;
+    }
+
+    public FileSystemEntity getChildByName(String s) {
+        for (FileSystemEntity child : this.children) {
+            if (child.getName().equals(s)) {
+                return child;
+            }
+        }
+        return null;
     }
 }
 

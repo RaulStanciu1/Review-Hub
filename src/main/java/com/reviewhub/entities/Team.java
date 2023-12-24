@@ -13,6 +13,8 @@ public class Team {
     private String name;
     private ArrayList<ObjectId> users;
     private ArrayList<ObjectId> projects;
+    private ArrayList<ObjectId> requests;
+    private ArrayList<ObjectId> admins;
 
     public Team(String name) {
         this.name = name;
@@ -26,5 +28,13 @@ public class Team {
 
     public void addProject(Project project) {
         this.projects.add(project.getId());
+    }
+
+    public void addRequest(Request request) {
+        this.requests.add(request.getId());
+    }
+
+    public void addAdmin(User user) {
+        this.admins.add(user.getId());
     }
 }

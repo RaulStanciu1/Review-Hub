@@ -1,14 +1,15 @@
 package com.reviewhub.entities;
 
 public enum DocumentType {
-    Python,
-    Java,
-    Text;
+    python,
+    java,
+    text;
     public static DocumentType parseDocType(String type){
         return switch(type){
-            case ".java" -> Java;
-            case ".py" -> Python;
-            default -> Text;
+            case ".java" -> java;
+            case ".py" -> python;
+            case ".sample" -> text;
+            default -> text;
         };
     }
 }

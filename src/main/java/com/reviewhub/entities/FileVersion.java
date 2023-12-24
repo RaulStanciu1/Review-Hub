@@ -1,16 +1,23 @@
 package com.reviewhub.entities;
 
-import lombok.Data;
+import lombok.*;
 
 @Data
-class FileVersion {
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+public class FileVersion {
+
     private int version;
     private Document document;
 
-    public FileVersion(int version, Document document) {
-        this.version = version;
-        this.document = document;
+
+    public void addComment(int lineNum, String comment, String commentType) {
+        this.document.addComment(lineNum, comment, commentType);
     }
 
-
+    public Document getDocument() {
+        return document;
+    }
 }

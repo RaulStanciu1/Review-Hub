@@ -1,18 +1,19 @@
 package com.reviewhub.services;
 
-import com.reviewhub.controller.UserDto;
-import com.reviewhub.dto.ProjectDto;
 import com.reviewhub.dto.TeamDto;
 import com.reviewhub.entities.Project;
+import com.reviewhub.entities.Request;
 import com.reviewhub.entities.Team;
 import com.reviewhub.entities.User;
 import com.reviewhub.respository.ProjectRepository;
+import com.reviewhub.respository.RequestRepositoty;
 import com.reviewhub.respository.TeamRepository;
 import com.reviewhub.respository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.Objects;
+import java.util.ArrayList;
 
 @Service
 public class TeamService {
@@ -20,11 +21,13 @@ public class TeamService {
     TeamRepository teamRepository;
     UserRepository userRepository;
     ProjectRepository projectRepository;
+    RequestRepositoty requestRepository;
     @Autowired
-    public TeamService(TeamRepository teamRepository, UserRepository userRepository, ProjectRepository projectRepository) {
+    public TeamService(TeamRepository teamRepository, UserRepository userRepository, ProjectRepository projectRepository, RequestRepositoty requestRepository) {
         this.teamRepository = teamRepository;
         this.userRepository = userRepository;
         this.projectRepository = projectRepository;
+        this.requestRepository = requestRepository;
     }
 
     public String createTeam(TeamDto team) {
@@ -32,7 +35,7 @@ public class TeamService {
         User user = userRepository.findByName(team.getUser());
         newTeam.addUser(user);
         teamRepository.save(newTeam);
-        return newTeam.getId().toString();
+        return "Team created";
         }
 
     public boolean checkTeam(TeamDto team) {
@@ -54,27 +57,90 @@ public class TeamService {
         return "User added to team";
     }
 
-    public String addProject(ProjectDto project) {
-        if (Objects.equals(project.getType(), "Team")){
-            Team team = teamRepository.findByName(project.getPlace());
-            if (team == null) {
-                return "Team does not exist";
-            }
-            Project newProject = projectRepository.findByName(project.getName());
-            team.addProject(newProject);
-            teamRepository.save(team);
-            return "Project added to team";
+    public String addProject(String teamName) {
+Team team = teamRepository.findByName(teamName);
+        if (team == null) {
+            return "Team does not exist";
         }
-        else {
-            User user = userRepository.findByName(project.getPlace());
-            if (user == null) {
-                return "User does not exist";
-            }
-            Project newProject = projectRepository.findByName(project.getName());
-            user.addProject(newProject);
-            userRepository.save(user);
-            return "Project added to user";
+        Project project = new Project(teamName);
+        projectRepository.save(project);
+        team.addProject(project);
+        teamRepository.save(team);
+        return "Project added to team";
+    }
+
+    public ResponseEntity<?> addProject(String teamName, Project project) {
+        Team team = teamRepository.findByName(teamName);
+        if (team == null) {
+            return ResponseEntity.badRequest().body("Team does not exist");
         }
+        team.addProject(project);
+        teamRepository.save(team);
+        return ResponseEntity.ok("Project added to team");
+    }
+
+    public String requestTeamAccess(Request request) {
+        Request id = requestRepository.save(request);
+        Team team = teamRepository.findByName(request.getTeamName());
+        team.addRequest(request);
+        teamRepository.save(team);
+        return "Request sent";
+    }
+
+    public String acceptTeamRequest(String username, String teamName) {
+        Team team = teamRepository.findByName(teamName);
+        User user = userRepository.findByName(username);
+        team.addUser(user);
+        teamRepository.save(team);
+        requestRepository.deleteByTeamNameAndAndUsername(teamName, username);
+        return "User added to team";
+    }
+
+    public String rejectTeamRequest(String username, String teamName) {
+        requestRepository.deleteByTeamNameAndAndUsername(teamName, username);
+        return "Request rejected";
+    }
+
+    public ArrayList<Request> getAllRequests(String username) {
+        User user = userRepository.findByName(username);
+        ArrayList<Team> teams = teamRepository.findByAdminsContaining(user.getId());
+        return requestRepository.findAllByTeamNameIn(teams);
+    }
+
+    public ResponseEntity<?>addAdmin(String username, String teamName, String authorizatorUsername) {
+        User user = userRepository.findByName(username);
+        User authorizator = userRepository.findByName(authorizatorUsername);
+        if (user == null) {
+            return ResponseEntity.badRequest().body("User does not exist");
+        }
+        Team team = teamRepository.findByName(teamName);
+        if (team == null) {
+            return ResponseEntity.badRequest().body("Team does not exist");
+        }
+        if (!team.getAdmins().contains(authorizator.getId())) {
+            return ResponseEntity.badRequest().body("User is not admin");
+        }
+        team.addAdmin(user);
+        teamRepository.save(team);
+        return ResponseEntity.ok("User added as admin");
+    }
+
+    public ResponseEntity<?> removeAdmin(String username, String teamName, String authorizatorUsername) {
+        User user = userRepository.findByName(username);
+        User authorizator = userRepository.findByName(authorizatorUsername);
+        if (user == null) {
+            return  ResponseEntity.badRequest().body("User does not exist");
+        }
+        Team team = teamRepository.findByName(teamName);
+        if (team == null) {
+            return ResponseEntity.badRequest().body("Team does not exist");
+        }
+        if (!team.getAdmins().contains(authorizator.getId())) {
+            return ResponseEntity.badRequest().body("User is not admin");
+        }
+        team.getAdmins().remove(user.getId());
+        teamRepository.save(team);
+        return ResponseEntity.ok("User removed as admin");
     }
 }
 

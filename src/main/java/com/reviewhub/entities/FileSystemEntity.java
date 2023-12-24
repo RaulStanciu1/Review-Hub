@@ -7,6 +7,6 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-abstract class FileSystemEntity {
+public abstract class FileSystemEntity {
     private String name;
 }
