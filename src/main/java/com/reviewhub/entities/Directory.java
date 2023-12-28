@@ -11,7 +11,7 @@ public class Directory extends FileSystemEntity {
 
     public Directory(String name) {
         super(name);
-        this.children = new ArrayList<>();
+        this.children = new ArrayList<FileSystemEntity>();
     }
 
     public Directory() {
@@ -71,6 +71,41 @@ public class Directory extends FileSystemEntity {
             }
         }
         return null;
+    }
+
+    public String toString(int indentationLevel) {
+        StringBuilder result = new StringBuilder();
+        String indentation = "  ".repeat(indentationLevel); // Two spaces for each level
+
+        result.append(indentation).append(this.getName()).append(":").append("\n");
+        for (File child : this.getFiles()) {
+            result.append(child.toString(indentationLevel + 1)).append("\n");
+        }
+        for (Directory child : this.getDirectories()) {
+            result.append(child.toString(indentationLevel + 1)).append("\n");
+        }
+        return result.toString();
+    }
+
+
+    private ArrayList<Directory> getDirectories() {
+        ArrayList<Directory> directories = new ArrayList<>();
+        for (FileSystemEntity child : this.children) {
+            if (child instanceof Directory) {
+                directories.add((Directory) child);
+            }
+        }
+        return directories;
+    }
+
+    private ArrayList<File> getFiles() {
+        ArrayList<File> files = new ArrayList<>();
+        for (FileSystemEntity child : this.children) {
+            if (child instanceof File) {
+                files.add((File) child);
+            }
+        }
+        return files;
     }
 }
 

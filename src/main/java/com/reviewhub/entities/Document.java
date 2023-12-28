@@ -30,4 +30,14 @@ public class Document {
     public void addComment(int lineNum, String comment, String commentType) {
         this.comments.add(new Comment(comment, lineNum, CommentType.parseCommentType(commentType)));
     }
+
+    public String toString(int indentationLevel) {
+        StringBuilder result = new StringBuilder();
+        String indentation = "  ".repeat(indentationLevel); // Two spaces for each level
+
+        result.append(indentation).append(this.type).append("\n");
+
+        return result.toString();
+    }
+
 }

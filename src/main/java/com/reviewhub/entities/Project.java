@@ -16,9 +16,11 @@ public class Project extends Directory{
     private ObjectId id;
     public Project(String name) {
         super(name);
+        this.setChildren(new ArrayList<>());
     }
     public Project() {
         super();
+        this.setChildren(new ArrayList<>());
     }
 
     //create a conversion from directory to project
@@ -28,5 +30,39 @@ public class Project extends Directory{
     }
 
 
+    @Override
+    public String toString(int indentationLevel) {
+        StringBuilder result = new StringBuilder();
+        String indentation = "  ".repeat(indentationLevel); // Two spaces for each level
 
+        for (File child : this.getFiles()) {
+            result.append(indentation).append(child.toString(indentationLevel + 1)).append("\n");
+        }
+        for (Directory child : this.getDirectories()) {
+            result.append(indentation).append(child.toString(indentationLevel + 1)).append("\n");
+        }
+
+        return result.toString();
+    }
+
+
+    private ArrayList<File> getFiles() {
+        ArrayList<File> files = new ArrayList<>();
+        for (FileSystemEntity child : this.getChildren()) {
+            if (child instanceof File) {
+                files.add((File) child);
+            }
+        }
+        return files;
+    }
+
+    private ArrayList<Directory> getDirectories() {
+        ArrayList<Directory> directories = new ArrayList<>();
+        for (FileSystemEntity child : this.getChildren()) {
+            if (child instanceof Directory) {
+                directories.add((Directory) child);
+            }
+        }
+        return directories;
+    }
 }

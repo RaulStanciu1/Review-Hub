@@ -61,7 +61,7 @@ public class ProjectService {
         ((File) ptr).addComment(lineNum, comment, commentType, version);
         projectRepository.save(project);
     }
-
+    //Make me
     public void createAlternateFunc(String projectName, String filePath, int funcStart, int funcEnd, int version) {
         Project project = projectRepository.findByName(projectName);
         FileSystemEntity ptr = project;
@@ -98,7 +98,7 @@ public class ProjectService {
         UnzipFolder.deleteDirectory(file1);
     }
     //TestMe
-    private Project merge(Directory directory1, Directory directory2) {
+    public Project merge(Directory directory1, Directory directory2) {
         Project project = new Project();
         project.setName(directory1.getName());
 
@@ -118,9 +118,8 @@ public class ProjectService {
                 if (file1.getCurrentVersion().getDocument().getContent().equals(file2.getCurrentVersion().getDocument().getContent())) {
                     project.addChild(file1);
                 } else {
-                    File file = new File(file1.getName());
-                    file.addVersion(file2.getCurrentVersion().getDocument());
-                    project.addChild(file);
+                    file1.addVersion(file2.getCurrentVersion().getDocument());
+                    project.addChild(file1);
                 }
             } else if (fileSystemEntity instanceof Directory && !(directory1.getChildren().contains(fileSystemEntity))) {
                 project.addChild(fileSystemEntity);
